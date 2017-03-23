@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-my-first" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/23/my-first/" class="article-date">
+  <time datetime="2017-03-23T09:30:00.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/23/my-first/">my-first</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="linux程序设计"><a href="#linux程序设计" class="headerlink" title="linux程序设计"></a>linux程序设计</h1><ul>
+<li>分区的组织形式<ul>
+<li>MBR：4T的限制<ul>
+<li>主分区<ul>
+<li>hda512个字节</li>
+<li>系统盘用主分区</li>
+</ul>
+</li>
+<li>逻辑分区<ul>
+<li>每个主分区最多能分4个逻辑分区</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>EFI</li>
+<li>GPT：比较新<ul>
+<li>GUID partition Table</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分区的文件系统：分区内文件数据存储的方式<ul>
+<li>由操作系统制作方制定</li>
+<li>FAT32：不能超过4g</li>
+<li>JFS</li>
+<li>NTFS</li>
+<li>ext 4</li>
+</ul>
+</li>
+<li>文件类型<ul>
+<li>普通文件</li>
+<li>（c开头）字符型设备驱动：数据流量小（不在硬盘上，读写是系统管理的设备）</li>
+<li>b块型设备驱动：硬盘，数据量大</li>
+<li>socket（读写网络发送）</li>
+<li>l符号链接（相当于快捷方式，通过某一个文件名访问另一个文件）</li>
+<li>（d开头）表示目录</li>
+<li>ls -l列出文件详细信息</li>
+<li>ls -a显示隐藏文件</li>
+</ul>
+</li>
+<li>目录结构<ul>
+<li>etc目录下：配置文件</li>
+<li>bin目录：应用</li>
+</ul>
+</li>
+<li><p>命令</p>
+<ul>
+<li>p w d：print work directory</li>
+<li>mkdir：make directory</li>
+<li>rmdir：remove directory</li>
+<li>-l（列出详细信息） -R（递归） -a（显示隐藏）</li>
+<li>touch：改变访问时间，希望强制编译没有改过的文件</li>
+<li>cp：copy file</li>
+<li>rm：remove files（也可以删文件夹，-R）</li>
+<li>mv：move and rename files</li>
+<li>cat：print file contents</li>
+<li>ln：link file创建一个文件的快捷方式</li>
+<li>more／less：一页一页的展示文件</li>
+<li>重定向&lt;, &gt;, &gt;&gt;, 2&gt;, &amp;&gt;</li>
+<li>管道 | ：前一个命令的标准输出，作为后一个命令的标准输入</li>
+<li>xargs 把标准输入内的文件打开，再查找</li>
+<li>PATH</li>
+</ul>
+</li>
+<li><p>文件类型</p>
+<ul>
+<li>查看<ul>
+<li>file 文件名</li>
+<li>ls -l</li>
+</ul>
+</li>
+<li>类型<ul>
+<li>普通文件</li>
+<li>目录文件：drwxr</li>
+<li>设备文件<ul>
+<li>块设备：磁盘<ul>
+<li>brw</li>
+<li>service kuzdu start系统自动配置相应设备</li>
+</ul>
+</li>
+<li>字符设备文件<ul>
+<li>crw</li>
+<li>service kuzdu start自动增加删除修改字符设备文件</li>
+</ul>
+</li>
+<li>管道文件</li>
+<li>链接文件<ul>
+<li>lrw</li>
+<li>软链接<ul>
+<li>符号链接</li>
+<li>ln –s a b</li>
+</ul>
+</li>
+<li>硬链接（ln -s 文件 链接文件）：相当于使用了别名<ul>
+<li>源文件删除后仍然存在且保留内容，作为一个普通文件</li>
+<li>inode号：硬链接相同；软链接不同</li>
+<li>硬链接链接数：大于1</li>
+<li>不能给目录创建链接</li>
+<li>只有在同一文件系统中的文件之间才能创建链接</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>文件指令<ul>
+<li>pwd绝对路径</li>
+<li>ls：<ul>
+<li>隐藏文件：以 . 开头</li>
+<li>查看隐藏文件 ls -a</li>
+<li>ls -i 查看inode号</li>
+<li>ls -l<ul>
+<li>类型 连接数 黄建人 时间 文件／目录名 权限</li>
+<li><img src="./1482992724741.png" alt="Alt text"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>touch创建空文件，更改文件或者目录时间</li>
+<li>mkdir创建目录<ul>
+<li>mkdir -m 777 newdir2权限为777</li>
+</ul>
+</li>
+<li>rmdir删除空目录</li>
+<li>dd创建有大小的文件，备份一段连续的空间，把iso文件写到u盘</li>
+<li>cp：拷贝文件／目录（-r 递归的）<ul>
+<li>cp -r /boot /root</li>
+<li>cp /etc/named.conf   /root/named.c（改名）</li>
+</ul>
+</li>
+<li>mv：<ul>
+<li>mv /root/picture  /root/mypicture（改名）</li>
+</ul>
+</li>
+<li>rm：删除文件<ul>
+<li>rm -rf /root/ab</li>
+</ul>
+</li>
+<li>wc：统计字数<ul>
+<li>wc –lwc file1 file2</li>
+<li>-l行数</li>
+<li>w单词数c字符数</li>
+</ul>
+</li>
+<li><p>文本显示和处理</p>
+<ul>
+<li>cat：显示文本文件内容，把几个文件内容附加到另一个文件中<ul>
+<li>cat ／etc／index<ul>
+<li>cat file1 &gt;file2</li>
+</ul>
+</li>
+<li>more<ul>
+<li>more +10 file：从第10 行开始显示</li>
+<li>more -10 file：一次显示10行</li>
+</ul>
+</li>
+<li>less</li>
+<li>head<ul>
+<li>head -3 文件名</li>
+<li>-v显示文件名</li>
+</ul>
+</li>
+<li>tail<ul>
+<li>默认从倒数第10行开始显示</li>
+<li>tail -f：实时的得到新追加到文件中的信息，常用来跟踪日志文件</li>
+</ul>
+</li>
+<li>sort</li>
+<li>uniq</li>
+<li>cut<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[rocrocket@rocrocket programming]$ cat /etc/passwd|head -n 5</div><div class="line">root:x:0:0:root:/root:/bin/bash</div><div class="line">bin:x:1:1:bin:/bin:/sbin/nologin</div><div class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</div><div class="line">adm:x:3:4:adm:/var/adm:/sbin/nologin</div><div class="line">lp:x:4:7:lp:/var/spool/lpd:/sbin/nologin</div><div class="line">[rocrocket@rocrocket programming]$ cat /etc/passwd|head -n 5|cut -d : -f 1</div><div class="line">root</div><div class="line">bin</div><div class="line">daemon</div><div class="line">adm</div><div class="line">lp</div><div class="line">看到了吧，用-d来设置间隔符为冒号，然后用-f来设置我要取的是第一个域，再按回车，所有的用户名就都列出来了</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>comm</p>
+</li>
+<li>diff <ul>
+<li>diff -u 文件名 文件名</li>
+</ul>
+</li>
+<li>cut 命令从文件的每一行剪切字节、字符和字段并将这些字节、字符和字段写至标准输出。</li>
+<li>patch</li>
+<li>gerp：查找符合条件的字符串<ul>
+<li>grep ‘字符串’ 文件名</li>
+<li>grep ‘test’ d*以d开头的文件名</li>
+<li>rpm -a会把安装的所有软件显示出来rpm -a | grep kerne叫kernel的软件</li>
+</ul>
+</li>
+<li>find：效率低，可以在根，root下查找，指定查找的位置：查找文件名，按照时间<ul>
+<li>find 位置 -选项 文件</li>
+<li>find 。 -ctime -10：十天内创建的文件</li>
+<li>find 。 -name filename：按照名字搜索</li>
+</ul>
+</li>
+<li>locate：做索引</li>
+<li>whereis命令位置</li>
+<li>whatis命令解释</li>
+<li>which：根whereis差不多</li>
+</ul>
+<p>用户账号管理：</p>
+<ul>
+<li>root用户</li>
+<li>虚拟用户：没有登陆系统的能力，但是是运行需要的，比如bin</li>
+<li>普通用户：可以增加权限</li>
+</ul>
+<p>／etc／passwd：一行表示一个用户账号信息，一行7段（一段表示一类信息），用：分割，<br>名称：x（早期密码保存在这里，意味着用户密码已经记录在shadow中）：1000（uid，不要改，改了可能文件权限不再能访问，或者能访问不该访问的文件）：1000（GID用户组 ，每次都会以用户的名称创建一个组）：张三（用户名全称）：／home／zhangsan（用户主目录，root用户保存在根目录，普通用户在home目录）<br>组群账号管理<br>维护：</p>
+<ul>
+<li>sh远程连接</li>
+<li>图形界面</li>
+<li>直接修改对应的配置文件<br>安全：过期，激活等等<br>root用户UID=0：可以改变root 用户的用户名，增强系统安全性（还可以改变版本号）<br>非0的uid是系统用户或者普通用户<br>配置文件／etc／passwd，／etc／shadow（密码时效），／etc／gshadow（给用户组设置密码）</li>
+</ul>
+<p>zhangsan:<code>$6$</code>E/xvWMmh$rhYLQwwffEqIudVLFzMlvkb0iN4.0 Oluk6H.UovEYN0/99dVoHXcaCNGZZkFY1S3QHYgm7e6JPzEew6 ybmN4e0:16364(用户最后一次更改口令的日期，天数):0（用户最后一次更改口令的日期）:99999（口令更换前警告的天数<br>用户登录系统后，系统登录程序提醒用户口令将要过期）:7（帐号被取消激活前的天数<br>表示用户口令过期多少天后，系统会禁用此用户，也就是说系统会不<br>让此用户登录，也不会提示用户过期，是完全禁用的）:::</p>
+<p>grub：引导装载程序</p>
+<p>tcpdump：抓包工具，ysharp，在windows下叫做sniff<br>图形界面配置网络<br>webmin：第三方的web工具，通过浏览器访问服务器，为系统的建立账号，管理服务器</p>
+<p>systemctl：<br>systemctl start named.service(例如mysqld.service)<br>systemctl restart named.service(通过观察是否正常stop来判断是否正常启动了)<br>systemctl status named.service<br>chkconfig –list 服务名（一个字母就-，多个字母–）</p>
+<p>SSH<br>代替telnet，密钥的方式，公钥加密，私钥解密，远程加密拷贝，代理<br>openSSH，不对称加密，用公钥加密，传输给服务器端，服务器用私钥解密<br>netstat - ntulp | grep 22</p>
+<p>ssh 127.0.0.1<br>VNC<br>图形界面</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/23/my-first/" data-id="cj0m783hs0001m2rq3s8vtygb" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/06/hello-world/" class="article-date">
+  <time datetime="2017-03-06T02:32:27.000Z" itemprop="datePublished">2017-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/06/hello-world/">Hello World</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/06/hello-world/" data-id="cj0m783hk0000m2rq1r19yx9o" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Articles récents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/23/my-first/">my-first</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/06/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 John Doe<br>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
