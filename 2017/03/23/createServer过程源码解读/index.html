@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>createServer过程源码解读 | Do Not Go Gentle into That Good Night</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="node的入门就会写这样几行简单的代码，而createServer的过程究竟发生什么12345678910const http = require(&amp;apos;http&amp;apos;);const server = http.createServer((req, res) =&amp;gt; &amp;#123;  res.statusCode = 200;  res.setHeader(&amp;apos;Content">
+<meta property="og:type" content="article">
+<meta property="og:title" content="createServer过程源码解读">
+<meta property="og:url" content="http://yoursite.com/2017/03/23/createServer过程源码解读/index.html">
+<meta property="og:site_name" content="Do Not Go Gentle into That Good Night">
+<meta property="og:description" content="node的入门就会写这样几行简单的代码，而createServer的过程究竟发生什么12345678910const http = require(&amp;apos;http&amp;apos;);const server = http.createServer((req, res) =&amp;gt; &amp;#123;  res.statusCode = 200;  res.setHeader(&amp;apos;Content">
+<meta property="og:updated_time" content="2017-03-23T14:44:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="createServer过程源码解读">
+<meta name="twitter:description" content="node的入门就会写这样几行简单的代码，而createServer的过程究竟发生什么12345678910const http = require(&amp;apos;http&amp;apos;);const server = http.createServer((req, res) =&amp;gt; &amp;#123;  res.statusCode = 200;  res.setHeader(&amp;apos;Content">
+  
+    <link rel="alternate" href="/atom.xml" title="Do Not Go Gentle into That Good Night" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Do Not Go Gentle into That Good Night</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-createServer过程源码解读" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/23/createServer过程源码解读/" class="article-date">
+  <time datetime="2017-03-23T14:44:03.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      createServer过程源码解读
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>node的入门就会写这样几行简单的代码，而createServer的过程究竟发生什么<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">const http = require(&apos;http&apos;);</div><div class="line">const server = http.createServer((req, res) =&gt; &#123;</div><div class="line">  res.statusCode = 200;</div><div class="line">  res.setHeader(&apos;Content-Type&apos;, &apos;text/plain&apos;);</div><div class="line">  res.end(&apos;Hello World\n&apos;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.listen(() =&gt; &#123;</div><div class="line">  console.log(`Server is running `);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h2 id="问题1：request和response是什么"><a href="#问题1：request和response是什么" class="headerlink" title="问题1：request和response是什么"></a>问题1：request和response是什么</h2><p>首先在http.js代码中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const Server = exports.Server = server.Server;</div><div class="line"></div><div class="line">exports.createServer = function(requestListener) &#123;</div><div class="line">  return new Server(requestListener);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>createServer做的事情很简单，只是new一个Server的实例，传入回调函数，并返回server</p>
+<p><code>const server = require(&#39;_http_server&#39;);</code>可以看到server来自<code>_http_server</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function Server(requestListener) &#123;</div><div class="line">  if (!(this instanceof Server)) return new Server(requestListener);</div><div class="line">  net.Server.call(this, &#123; allowHalfOpen: true &#125;);</div><div class="line">  if (requestListener) &#123;</div><div class="line">    this.addListener(&apos;request&apos;, requestListener);</div><div class="line">  &#125;</div><div class="line">  this.httpAllowHalfOpen = false;</div><div class="line">  this.addListener(&apos;connection&apos;, connectionListener);</div><div class="line">  this.timeout = 2 * 60 * 1000;</div><div class="line">  this._pendingResponseData = 0;</div><div class="line">&#125;</div><div class="line">util.inherits(Server, net.Server);</div><div class="line"></div><div class="line">Server.prototype.setTimeout = function(msecs, callback) &#123;</div><div class="line">  this.timeout = msecs;</div><div class="line">  if (callback)</div><div class="line">    this.on(&apos;timeout&apos;, callback);</div><div class="line">  return this;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">exports.Server = Server;</div></pre></td></tr></table></figure>
+<p>Server继承net.Server，且requestListener，作为’request’事件的监听器。</p>
+<p>在resOnFinish函数中，<code>self.emit(&#39;request&#39;, req, res);</code>触发了request事件。</p>
+<ul>
+<li><p>res的来源<br><code>var res = new ServerResponse(req);</code></p>
+</li>
+<li><p>req的来源</p>
+<ul>
+<li>req来自parserOnIncoming的形参；<br><code>parser.onIncoming = parserOnIncoming.bind(undefined, this, socket, state);</code>而parser来自<code>_http_common</code>的parsers.alloc()。</li>
+<li>在方法parserOnHeadersComplete中<code>skipBody = parser.onIncoming(parser.incoming, shouldKeepAlive);</code>传入了request，<br><code>parser.incoming = new IncomingMessage(parser.socket);</code>说明传入的request是IncomingMessage的实例</li>
+<li><code>IncomingMessage = require(&#39;_http_incoming&#39;).IncomingMessage;</code><br><code>_http_incoming</code>中可以看到<code>util.inherits(IncomingMessage, Stream.Readable)；</code>所以IncomingMessage是继承自Stream.Readable</li>
+</ul>
+</li>
+</ul>
+<h2 id="问题2-什么时候执行回调函数"><a href="#问题2-什么时候执行回调函数" class="headerlink" title="问题2:什么时候执行回调函数"></a>问题2:什么时候执行回调函数</h2><ul>
+<li><p>connectionListener中有<code>parser.onIncoming = parserOnIncoming.bind(undefined, this, socket, state);</code></p>
+</li>
+<li><p>在server的初始化时</p>
+<ul>
+<li><code>this.on(&#39;request&#39;, requestListener);</code>注册request时加上执行回调操作</li>
+<li><code>this.on(&#39;connection&#39;, connectionListener);</code>注册connection的Listener</li>
+</ul>
+</li>
+<li>parserOnIncoming方法中 <code>server.emit(&#39;request&#39;, req, res);</code>发出request；最后在parserOnHeadersComplete方法中调用onIncoming，也就是server里的parserOnIncoming</li>
+<li>那么什么时候会发出connection操作呢？<ul>
+<li>在net.js中的onconnection方法中<code>self.emit(&#39;connection&#39;, socket);</code>。</li>
+<li>在<code>_listen2</code>方法中<code>this._handle.onconnection = onconnection;</code></li>
+<li>在listen里调用<code>listen2self._listen2(address, port, addressType, backlog, fd);</code></li>
+<li><code>Server.prototype.listen = function()</code> 中有对listen方法的调用，也就是说，当server调用listen，会出发connectionListener，进一步触发parserOnIncoming，发出request和response，触发requestListener也就是传入的回调函数</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/23/createServer过程源码解读/" data-id="cj0mij2y300034frqimc0p1ww" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/23/node的事件机制/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          node的事件机制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/23/延迟加载图片/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">延迟加载图片</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-springmvc/">java springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/java-springmvc/" style="font-size: 10px;">java springmvc</a> <a href="/tags/node/" style="font-size: 20px;">node</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/23/js原型链、instanceof和继承/">js原型链、instanceof和继承</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/springmvc源码/">springmvc源码</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/node的事件机制/">node的事件机制</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/createServer过程源码解读/">createServer过程源码解读</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/延迟加载图片/">延迟加载图片</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 周小帆<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

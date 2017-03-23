@@ -3,14 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Do Not Go Gentle into That Good Night</title>
+  <title>springmvc源码 | Do Not Go Gentle into That Good Night</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Do Not Go Gentle into That Good Night">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="DispatcherServlet来看spring mvc请求处理过程架构官方架构图可以看到请求处理过程，而DispatcherServlet正是担当front controller的角色。
+生命周期通过源码可以看到，DispatcherServlet继承自FrameworkServlet，FrameworkServlet继承HttpServletBean，HttpServletBean继承Htt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springmvc源码">
+<meta property="og:url" content="http://yoursite.com/2017/03/23/springmvc源码/index.html">
 <meta property="og:site_name" content="Do Not Go Gentle into That Good Night">
+<meta property="og:description" content="DispatcherServlet来看spring mvc请求处理过程架构官方架构图可以看到请求处理过程，而DispatcherServlet正是担当front controller的角色。
+生命周期通过源码可以看到，DispatcherServlet继承自FrameworkServlet，FrameworkServlet继承HttpServletBean，HttpServletBean继承Htt">
+<meta property="og:image" content="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/images/mvc.png">
+<meta property="og:updated_time" content="2017-03-23T14:46:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Do Not Go Gentle into That Good Night">
+<meta name="twitter:title" content="springmvc源码">
+<meta name="twitter:description" content="DispatcherServlet来看spring mvc请求处理过程架构官方架构图可以看到请求处理过程，而DispatcherServlet正是担当front controller的角色。
+生命周期通过源码可以看到，DispatcherServlet继承自FrameworkServlet，FrameworkServlet继承HttpServletBean，HttpServletBean继承Htt">
+<meta name="twitter:image" content="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/images/mvc.png">
   
     <link rel="alternate" href="/atom.xml" title="Do Not Go Gentle into That Good Night" type="application/atom+xml">
   
@@ -59,76 +68,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-js原型链、instanceof和继承" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/23/js原型链、instanceof和继承/" class="article-date">
-  <time datetime="2017-03-23T14:47:08.000Z" itemprop="datePublished">2017-03-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/js原型链、instanceof和继承/">js原型链、instanceof和继承</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="原型链、继承-和-instanceof"><a href="#原型链、继承-和-instanceof" class="headerlink" title="原型链、继承 和 instanceof"></a>原型链、继承 和 instanceof</h1><p>参考：<br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof" target="_blank" rel="external">MDN：instanceof</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="external">MDN：Inheritance and the prototype chain</a><br><a href="https://blog.oyanglul.us/javascript/understand-prototype.html" target="_blank" rel="external">理解JavaScript的原型链和继承</a></p>
-<h2 id="new实现了什么操作"><a href="#new实现了什么操作" class="headerlink" title="new实现了什么操作"></a>new实现了什么操作</h2><p>new的过程发生了什么？</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = name</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A(<span class="string">'hehe'</span>)</div><div class="line"></div><div class="line"> <span class="comment">// var a = new A('hehe') =&gt;</span></div><div class="line"> <span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line"> a.__proto__ = A.prototype; </div><div class="line"> A.call(a, <span class="string">'hehe'</span>);</div></pre></td></tr></table></figure>
-<h2 id="原型链和prototype属性"><a href="#原型链和prototype属性" class="headerlink" title="原型链和prototype属性"></a>原型链和prototype属性</h2><h3 id="原型链是什么"><a href="#原型链是什么" class="headerlink" title="原型链是什么"></a>原型链是什么</h3><p>上面的 <code>__proto__</code> 是什么？<br>就是原型链，原型链是内部 [ [Prototype ]]，指向它“父类”的prototype。</p>
-<p>打开浏览器控制台，可以看到函数变量都有一个prototype属性（箭头函数没有）。<br>通过这一句<code>a.__proto__ = A.prototype;</code> 说明a的原型链就是指向函数A的prototype属性。</p>
-<p>这里就有一个重要的认识了，虽然名字很像，但是原型链并不是prototype属性，同时原型链指向“父类”的prototype。几乎所有对象都有原型链（除了null和undefined），通过<code>__proto__</code>可以看到原型链指向什么（当然最好使用 Object.getPrototypeOf 取原型链）</p>
-<p>通过实验可以发现，js中对象的链可以非常复杂。<br>一图胜千言。这里借一张图。<br><img src="https://www.evernote.com/shard/s23/sh/ab65497c-cad4-4bd4-a1d5-c75252161220/97a6be759c1d6413/deep/0/" alt="enter image description here"></p>
-<p>简而言之</p>
-<ul>
-<li>函数对象，Function，Object，Array等等的原型链都指向Function.prototype</li>
-<li>通过new操作符创建的对象原型链指向原来的函数的prototype属性</li>
-<li>Object.prototype属性的原型链指向null（到null就停止了）</li>
-<li>而Function.prototype（Array，Date，String等等），以及函数对象的prototype，原型链都指向Object.prototype</li>
-</ul>
-<h3 id="prototype属性究竟是什么呢"><a href="#prototype属性究竟是什么呢" class="headerlink" title="prototype属性究竟是什么呢"></a>prototype属性究竟是什么呢</h3><p>可以看到是一个Object，有constructor和原型链。constructor是一个函数，也就是函数自身。这可以为后面提到的继承做准备。</p>
-<h2 id="instanceof什么意思"><a href="#instanceof什么意思" class="headerlink" title="instanceof什么意思"></a>instanceof什么意思</h2><blockquote>
-<p>The instanceof operator tests whether an object has in its prototype chain the prototype property of a constructor.</p>
-<p><strong>Syntax：</strong><br>object instanceof constructor</p>
-</blockquote>
-<p>意思就是<code>object.__proto__===constructor.prototype</code></p>
-<p>MDN的教程中举例<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// defining constructors</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> C();</div><div class="line"><span class="comment">// true, because: Object.getPrototypeOf(o) === C.prototype</span></div><div class="line">o <span class="keyword">instanceof</span> C;</div></pre></td></tr></table></figure></p>
-<p>但是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var simpleStr = &apos;This is a simple string&apos;; </div><div class="line">var myString  = new String();</div><div class="line"></div><div class="line">simpleStr instanceof String; // returns false, checks the prototype chain, finds undefined</div></pre></td></tr></table></figure>
-<p>可是在浏览器中试验<code>Object.getPrototypeOf(simpleStr) === String.prototype</code><br>结果是true，大概这算作一个特殊情况</p>
-<h2 id="如何实现继承"><a href="#如何实现继承" class="headerlink" title="如何实现继承"></a>如何实现继承</h2><p><a href="https://babeljs.io/repl/" target="_blank" rel="external">https://babeljs.io/repl/</a><br>可以在这个网站在线编译并查看结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">  constructor(name) &#123;</div><div class="line">    this.name= name</div><div class="line">  &#125;</div><div class="line">  toString() &#123;</div><div class="line">    return this.name</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">class B extends A &#123;</div><div class="line">  toString()&#123;</div><div class="line">    return this.name + &apos;b&apos;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>编译出来的ES5继承</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">_inherits</span>(<span class="params">subClass, superClass</span>) </span>&#123; </div><div class="line">    subClass.prototype.__proto__=superClass.prototype;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> A = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    A.prototype.toString = <span class="function"><span class="keyword">function</span> <span class="title">toString</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">return</span> A;</div><div class="line">&#125;)();</div><div class="line"><span class="keyword">var</span> B = (<span class="function"><span class="keyword">function</span> (<span class="params">_A</span>) </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (_A != <span class="literal">null</span>) &#123;</div><div class="line">            _A.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    _inherits(B, _A);</div><div class="line">    B.prototype.toString = <span class="function"><span class="keyword">function</span> <span class="title">toString</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">'b'</span>;</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">return</span> B;</div><div class="line">&#125;)(A);</div></pre></td></tr></table></figure>
-<p>简单来说就是这样</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/js原型链、instanceof和继承/" data-id="cj0mij2xn00004frq3kk2wph9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-springmvc源码" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-springmvc源码" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/23/springmvc源码/" class="article-date">
   <time datetime="2017-03-23T14:45:57.000Z" itemprop="datePublished">2017-03-23</time>
@@ -141,8 +81,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/springmvc源码/">springmvc源码</a>
+    <h1 class="article-title" itemprop="name">
+      springmvc源码
     </h1>
   
 
@@ -207,267 +147,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-node的事件机制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/23/node的事件机制/" class="article-date">
-  <time datetime="2017-03-23T14:45:09.000Z" itemprop="datePublished">2017-03-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2017/03/23/js原型链、instanceof和继承/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/node的事件机制/">node的事件机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="什么是事件循环（event-loop）？"><a href="#什么是事件循环（event-loop）？" class="headerlink" title="什么是事件循环（event loop）？"></a>什么是事件循环（event loop）？</h3><p>尽管js是单线程的，事件循环机制，通过在合适的时候把操作交给系统内核，从而允许node执行非阻塞的io操作<br>当操作完成时，内核告知node.js，合适的回调函数会被加入轮询队列，最终被执行。<br>Node.js启动的时候，初始化event loop，处理提供的脚本，脚本中可能调用异步API，调度timers，或者调用process.nextTick()，然后处理event loop</p>
-<p>下图是简化的事件循环操作顺序图overview<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">	 ┌───────────────────────┐</div><div class="line">┌─&gt;│        timers         │</div><div class="line">│  └──────────┬────────────┘</div><div class="line">│  ┌──────────┴────────────┐</div><div class="line">│  │     I/O callbacks     │</div><div class="line">│  └──────────┬────────────┘</div><div class="line">│  ┌──────────┴────────────┐</div><div class="line">│  │     idle, prepare     │</div><div class="line">│  └──────────┬────────────┘      ┌───────────────┐</div><div class="line">│  ┌──────────┴────────────┐      │   incoming:   │</div><div class="line">│  │         poll          │&lt;─────┤  connections, │</div><div class="line">│  └──────────┬────────────┘      │   data, etc.  │</div><div class="line">│  ┌──────────┴────────────┐      └───────────────┘</div><div class="line">│  │        check          │</div><div class="line">│  └──────────┬────────────┘</div><div class="line">│  ┌──────────┴────────────┐</div><div class="line">└──┤    close callbacks    │</div><div class="line">      └───────────────────────┘</div></pre></td></tr></table></figure></p>
-<p>图中每个box就是一个phase，每个phase有一个先进先出的回调函数的队列，<br>event  loop进入了一个phase，就会执行phase中所有的操作，然后执行回调函数，直到队列耗尽了，或者回调函数执行数量到达最大数，接下来就去下一个phase</p>
-<p>因为任何一个操作都可能调度更多的操作，而且poll phase中新的事件由内核排队，所以正在轮询的事件在被处理的时候，poll事件们可能会排队。<br>结果：长时间的运行回调函数允许poll phase运行事件比timer的阈值更长。</p>
-<h2 id="phase-overview-阶段概况"><a href="#phase-overview-阶段概况" class="headerlink" title="phase overview 阶段概况"></a>phase overview 阶段概况</h2><ul>
-<li>timers：执行由setTimeout() and setInterval()调度的回调函数</li>
-<li>I/O callbacks：执行所有的回调函数，除了 close callbacks（由timers，setImmediate（）调度）</li>
-<li>idle, prepare：内部使用</li>
-<li>poll：获取新的io事件，当合适的时候，node会阻塞在这里</li>
-<li>check: setImmediate()回调函数会在这里调用</li>
-<li>close callbacks: e.g. socket.on(‘close’, …)</li>
-</ul>
-<p>每次运行event loop，node检查是否有对任何异步io或者timers的等待，没有就关闭</p>
-<h2 id="Phases-in-Detail（各阶段细述）"><a href="#Phases-in-Detail（各阶段细述）" class="headerlink" title="Phases in Detail（各阶段细述）"></a>Phases in Detail（各阶段细述）</h2><h3 id="timers"><a href="#timers" class="headerlink" title="timers"></a>timers</h3><p>timers指定阈值（threshold）之后，会执行回调函数，但threshold不是执行回调函数的确切时间（只是最短时间）。<br>timers回调函数一旦可以执行了就会被执行。然而操作系统的调度或者其他的回调函数可能推迟它的执行。<br>由poll phase来控制什么时候timers被执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var fs = require(&apos;fs&apos;);</div><div class="line">function someAsyncOperation (callback) &#123;</div><div class="line">  // Assume this takes 95ms to complete</div><div class="line">  fs.readFile(&apos;/path/to/file&apos;, callback);</div><div class="line">&#125;</div><div class="line">var timeoutScheduled = Date.now();</div><div class="line">setTimeout(function () &#123;</div><div class="line">  var delay = Date.now() - timeoutScheduled;</div><div class="line">  console.log(delay + &quot;ms have passed since I was scheduled&quot;);</div><div class="line">&#125;, 100);</div><div class="line">// do someAsyncOperation which takes 95 ms to complete</div><div class="line">someAsyncOperation(function () &#123;</div><div class="line">  var startCallback = Date.now();</div><div class="line">  // do something that will take 10ms...</div><div class="line">  while (Date.now() - startCallback &lt; 10) &#123;</div><div class="line">    ; // do nothing</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>一开始timer被调度，里面的回调函数执行log。<br>然后事件循环进入poll phase，此时队列是空的（因为fs.readFile()没有完成），所以就会等着，直到最早的timer的阈值（100）到时间，等了95 ms（还没到，毕竟定的是100），fs.readFile() 这个时候完成了，所以它的回调函数就回被加poll的队列并且被执行（执行10s），当回调函数完成了，队列又空了，所以，event loop将会看到timer的阈值（100）已经到了，<br>然后回到timers这个phase去执行timers的回调函数，也就是，打印出105秒</p>
-<p>为了防止poll phase 独占耗尽 event loop，libuv 也有一个最大值（基于系统），会在超过最大值之前停止轮询更多的事件。</p>
-<h3 id="I-O-callbacks"><a href="#I-O-callbacks" class="headerlink" title="I/O callbacks"></a>I/O callbacks</h3><p>为系统操作（比如tcp错误类型）执行回调函数<br>当tcp socket尝试连接时接收到ECONNREFUSED，类unix系统将会想报道错误，要会在这个phase排队执行。</p>
-<h3 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h3><p>poll phase有两个功能</p>
-<ul>
-<li>为到了时间的timers执行脚本，然后</li>
-<li><p>处理poll队列的事件</p>
-<p>当event loop 进入poll phase且没有timers被调度，下面的事情会发生</p>
-<ul>
-<li>poll不空，<ul>
-<li>通过回调函数队列迭代的执行</li>
-</ul>
-</li>
-<li>poll栈是空的<ul>
-<li>如果脚本已经被setImmediate()调度，事件循环将会终止poll phase，到check phase去执行那些被调度的脚本</li>
-<li>等着回调函数被加进队列，然后立马执行它<br>一旦poll空了，event loop将回检查timers有没有thresholds到了，有的话，wrap back to the timers phase，然后执行timers的回调函数</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="check"><a href="#check" class="headerlink" title="check"></a>check</h3><p> 特别的 timer</p>
-<h3 id="close-callbacks"><a href="#close-callbacks" class="headerlink" title="close callbacks"></a>close callbacks</h3><h3 id="setImmediate-and-setTimeout"><a href="#setImmediate-and-setTimeout" class="headerlink" title="setImmediate and setTimeout()"></a>setImmediate and setTimeout()</h3><ul>
-<li>在poll完成以后执行</li>
-<li>在最小事件之后执行</li>
-</ul>
-<p>执行顺序：<br>依赖于调用的上下文</p>
-<ul>
-<li>如果都在main module ，事件会被进程的性能限制（被其他应用影响）<ul>
-<li>not within an I/O cycle：不确定的</li>
-<li>within an I/O cycle：immediate总是先（更好）<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// timeout_vs_immediate.js</div><div class="line">setTimeout(function timeout () &#123;</div><div class="line">  console.log(&apos;timeout&apos;);</div><div class="line">&#125;,0);</div><div class="line"></div><div class="line">setImmediate(function immediate () &#123;</div><div class="line">  console.log(&apos;immediate&apos;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// timeout_vs_immediate.js</div><div class="line">var fs = require(&apos;fs&apos;)</div><div class="line"></div><div class="line">fs.readFile(__filename, () =&gt; &#123;</div><div class="line">  setTimeout(() =&gt; &#123;</div><div class="line">    console.log(&apos;timeout&apos;)</div><div class="line">  &#125;, 0)</div><div class="line">  setImmediate(() =&gt; &#123;</div><div class="line">    console.log(&apos;immediate&apos;)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="external">The Node.js Event Loop, Timers</a></p>
-<p>参考：</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/node的事件机制/" data-id="cj0mij2y500044frq6lqogn63" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-createServer过程源码解读" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/23/createServer过程源码解读/" class="article-date">
-  <time datetime="2017-03-23T14:44:03.000Z" itemprop="datePublished">2017-03-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          js原型链、instanceof和继承
         
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/createServer过程源码解读/">createServer过程源码解读</a>
-    </h1>
   
+    <a href="/2017/03/23/node的事件机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">node的事件机制</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>node的入门就会写这样几行简单的代码，而createServer的过程究竟发生什么<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">const http = require(&apos;http&apos;);</div><div class="line">const server = http.createServer((req, res) =&gt; &#123;</div><div class="line">  res.statusCode = 200;</div><div class="line">  res.setHeader(&apos;Content-Type&apos;, &apos;text/plain&apos;);</div><div class="line">  res.end(&apos;Hello World\n&apos;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.listen(() =&gt; &#123;</div><div class="line">  console.log(`Server is running `);</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h2 id="问题1：request和response是什么"><a href="#问题1：request和response是什么" class="headerlink" title="问题1：request和response是什么"></a>问题1：request和response是什么</h2><p>首先在http.js代码中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const Server = exports.Server = server.Server;</div><div class="line"></div><div class="line">exports.createServer = function(requestListener) &#123;</div><div class="line">  return new Server(requestListener);</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>createServer做的事情很简单，只是new一个Server的实例，传入回调函数，并返回server</p>
-<p><code>const server = require(&#39;_http_server&#39;);</code>可以看到server来自<code>_http_server</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function Server(requestListener) &#123;</div><div class="line">  if (!(this instanceof Server)) return new Server(requestListener);</div><div class="line">  net.Server.call(this, &#123; allowHalfOpen: true &#125;);</div><div class="line">  if (requestListener) &#123;</div><div class="line">    this.addListener(&apos;request&apos;, requestListener);</div><div class="line">  &#125;</div><div class="line">  this.httpAllowHalfOpen = false;</div><div class="line">  this.addListener(&apos;connection&apos;, connectionListener);</div><div class="line">  this.timeout = 2 * 60 * 1000;</div><div class="line">  this._pendingResponseData = 0;</div><div class="line">&#125;</div><div class="line">util.inherits(Server, net.Server);</div><div class="line"></div><div class="line">Server.prototype.setTimeout = function(msecs, callback) &#123;</div><div class="line">  this.timeout = msecs;</div><div class="line">  if (callback)</div><div class="line">    this.on(&apos;timeout&apos;, callback);</div><div class="line">  return this;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">exports.Server = Server;</div></pre></td></tr></table></figure>
-<p>Server继承net.Server，且requestListener，作为’request’事件的监听器。</p>
-<p>在resOnFinish函数中，<code>self.emit(&#39;request&#39;, req, res);</code>触发了request事件。</p>
-<ul>
-<li><p>res的来源<br><code>var res = new ServerResponse(req);</code></p>
-</li>
-<li><p>req的来源</p>
-<ul>
-<li>req来自parserOnIncoming的形参；<br><code>parser.onIncoming = parserOnIncoming.bind(undefined, this, socket, state);</code>而parser来自<code>_http_common</code>的parsers.alloc()。</li>
-<li>在方法parserOnHeadersComplete中<code>skipBody = parser.onIncoming(parser.incoming, shouldKeepAlive);</code>传入了request，<br><code>parser.incoming = new IncomingMessage(parser.socket);</code>说明传入的request是IncomingMessage的实例</li>
-<li><code>IncomingMessage = require(&#39;_http_incoming&#39;).IncomingMessage;</code><br><code>_http_incoming</code>中可以看到<code>util.inherits(IncomingMessage, Stream.Readable)；</code>所以IncomingMessage是继承自Stream.Readable</li>
-</ul>
-</li>
-</ul>
-<h2 id="问题2-什么时候执行回调函数"><a href="#问题2-什么时候执行回调函数" class="headerlink" title="问题2:什么时候执行回调函数"></a>问题2:什么时候执行回调函数</h2><ul>
-<li><p>connectionListener中有<code>parser.onIncoming = parserOnIncoming.bind(undefined, this, socket, state);</code></p>
-</li>
-<li><p>在server的初始化时</p>
-<ul>
-<li><code>this.on(&#39;request&#39;, requestListener);</code>注册request时加上执行回调操作</li>
-<li><code>this.on(&#39;connection&#39;, connectionListener);</code>注册connection的Listener</li>
-</ul>
-</li>
-<li>parserOnIncoming方法中 <code>server.emit(&#39;request&#39;, req, res);</code>发出request；最后在parserOnHeadersComplete方法中调用onIncoming，也就是server里的parserOnIncoming</li>
-<li>那么什么时候会发出connection操作呢？<ul>
-<li>在net.js中的onconnection方法中<code>self.emit(&#39;connection&#39;, socket);</code>。</li>
-<li>在<code>_listen2</code>方法中<code>this._handle.onconnection = onconnection;</code></li>
-<li>在listen里调用<code>listen2self._listen2(address, port, addressType, backlog, fd);</code></li>
-<li><code>Server.prototype.listen = function()</code> 中有对listen方法的调用，也就是说，当server调用listen，会出发connectionListener，进一步触发parserOnIncoming，发出request和response，触发requestListener也就是传入的回调函数</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/createServer过程源码解读/" data-id="cj0mij2y300034frqimc0p1ww" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-延迟加载图片" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/23/延迟加载图片/" class="article-date">
-  <time datetime="2017-03-23T14:43:15.000Z" itemprop="datePublished">2017-03-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/延迟加载图片/">延迟加载图片</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先有一个问题</p>
-<p>####src和href属性都用来包含一些外部的实体，那么有什么区别？</p>
-<p>src：source用于替代元素（<a href="http://reference.sitepoint.com/css/replacedelements" target="_blank" rel="external">replaced elements</a>简而言之，就是外观和尺寸由外部资源来定义，有img，button，textarea，input，select，object）。<br>href：Hypertext Reference，指定了web资源的定位。因此定义了一个连接或者现在元素之间的关系（比如锚和目的地），或者是当前文档（比如link标签）和属性定位的资源间的关系。<br>所以我们这样写<br><code>&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; /&gt;</code><br>浏览器就能够理解这是一个样式表，而且解析（parse）页面的时候不会中断（但是可能因为浏览器需要依据样式来绘制渲染界面而中断渲染render）。跟把所有css文件倒到style标签不一样。因此也建议用link，不要用 @import来导样式表 。</p>
-<p>src属性只是在当前的文本元素定义的地方嵌套了一个资源。<br>例如当浏览器看到<br><code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code><br>页面的下载和处理会被终止，直到浏览器获取，编译，执行了文件。类似于把所有的js文件都倾倒在script标签里。img标签也是类似的。只是一个空标签，内容由src定义，浏览器会暂停加载，直到获取和加载完图像。<br>这也是为什么要把js文件放在body的最后的原因。<br>参考来自<a href="http://stackoverflow.com/questions/3395359/difference-between-src-and-href" target="_blank" rel="external">http://stackoverflow.com/questions/3395359/difference-between-src-and-href</a></p>
-<hr>
-<p>想到了一个有意思的实现。<br>先不给img标签加上src，直到浏览到了这个位置再加载。对于移动端，还能省流量。</p>
-<p>所以来实现一下。<br>第一个问题在于获取图片距离可见范围下边的距离。<br>几个尺寸属性参考<a href="http://www.jianshu.com/p/187c0145248c" target="_blank" rel="external">http://www.jianshu.com/p/187c0145248c</a><br>先获取元素距离上边的距离，再获取屏幕可用高度，以及滑动高度。<br>从而得到距离视图下方的高度。</p>
-<p>第二个问题在于节流，总不能每滑动一下都执行一遍。有两个实现。同步和异步的方式各实现了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">handleScroll=(callback)=&gt;&#123;</div><div class="line">		let previousCall=new Date().getTime();</div><div class="line">		return (e=&gt;&#123;</div><div class="line">			let diff=new Date().getTime()-previousCall</div><div class="line">			if(diff&gt;INTERVAL)&#123;</div><div class="line">				callback.apply(null,arguments);</div><div class="line">				previousCall=new Date().getTime();</div><div class="line">			&#125;</div><div class="line">		&#125;)</div><div class="line">	&#125;</div><div class="line">window.addEventListener(&apos;scroll&apos;,handleScroll(checkImgs));</div><div class="line">//或者</div><div class="line">let wait=false;</div><div class="line">ontimeLoad=(e)=&gt;&#123;</div><div class="line">    if(!wait)&#123;</div><div class="line">      wait=true;</div><div class="line">      setTimeout(function()&#123;</div><div class="line">        wait=false;</div><div class="line">        checkImgs();</div><div class="line">      &#125;,10);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">window.addEventListener(&apos;scroll&apos;,ontimeLoad);</div></pre></td></tr></table></figure>
-<p>不过第一种的话有个问题，就是不能removeEventListener了</p>
-<p>源码：<br><a href="https://github.com/zxf14/font_end_demos/tree/master/defer-img-load" target="_blank" rel="external">https://github.com/zxf14/font_end_demos/tree/master/defer-img-load</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/23/延迟加载图片/" data-id="cj0mij2yc00054frqoru2522m" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/06/hello-world/" class="article-date">
-  <time datetime="2017-03-06T02:32:27.000Z" itemprop="datePublished">2017-03-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/06/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/06/hello-world/" data-id="cj0mij2xv00014frq6afzltl0" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 </section>
         

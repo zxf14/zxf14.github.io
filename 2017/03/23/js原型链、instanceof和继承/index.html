@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>js原型链、instanceof和继承 | Do Not Go Gentle into That Good Night</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原型链、继承 和 instanceof参考：MDN：instanceofMDN：Inheritance and the prototype chain理解JavaScript的原型链和继承
+new实现了什么操作new的过程发生了什么？
+123456789function A(name)&amp;#123;  this.name = name&amp;#125;var a = new A(&apos;hehe&apos;) // va">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js原型链、instanceof和继承">
+<meta property="og:url" content="http://yoursite.com/2017/03/23/js原型链、instanceof和继承/index.html">
+<meta property="og:site_name" content="Do Not Go Gentle into That Good Night">
+<meta property="og:description" content="原型链、继承 和 instanceof参考：MDN：instanceofMDN：Inheritance and the prototype chain理解JavaScript的原型链和继承
+new实现了什么操作new的过程发生了什么？
+123456789function A(name)&amp;#123;  this.name = name&amp;#125;var a = new A(&apos;hehe&apos;) // va">
+<meta property="og:image" content="https://www.evernote.com/shard/s23/sh/ab65497c-cad4-4bd4-a1d5-c75252161220/97a6be759c1d6413/deep/0/">
+<meta property="og:updated_time" content="2017-03-23T14:47:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js原型链、instanceof和继承">
+<meta name="twitter:description" content="原型链、继承 和 instanceof参考：MDN：instanceofMDN：Inheritance and the prototype chain理解JavaScript的原型链和继承
+new实现了什么操作new的过程发生了什么？
+123456789function A(name)&amp;#123;  this.name = name&amp;#125;var a = new A(&apos;hehe&apos;) // va">
+<meta name="twitter:image" content="https://www.evernote.com/shard/s23/sh/ab65497c-cad4-4bd4-a1d5-c75252161220/97a6be759c1d6413/deep/0/">
+  
+    <link rel="alternate" href="/atom.xml" title="Do Not Go Gentle into That Good Night" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Do Not Go Gentle into That Good Night</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-js原型链、instanceof和继承" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/23/js原型链、instanceof和继承/" class="article-date">
+  <time datetime="2017-03-23T14:47:08.000Z" itemprop="datePublished">2017-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      js原型链、instanceof和继承
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="原型链、继承-和-instanceof"><a href="#原型链、继承-和-instanceof" class="headerlink" title="原型链、继承 和 instanceof"></a>原型链、继承 和 instanceof</h1><p>参考：<br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof" target="_blank" rel="external">MDN：instanceof</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="external">MDN：Inheritance and the prototype chain</a><br><a href="https://blog.oyanglul.us/javascript/understand-prototype.html" target="_blank" rel="external">理解JavaScript的原型链和继承</a></p>
+<h2 id="new实现了什么操作"><a href="#new实现了什么操作" class="headerlink" title="new实现了什么操作"></a>new实现了什么操作</h2><p>new的过程发生了什么？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = name</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A(<span class="string">'hehe'</span>)</div><div class="line"></div><div class="line"> <span class="comment">// var a = new A('hehe') =&gt;</span></div><div class="line"> <span class="keyword">var</span> a = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line"> a.__proto__ = A.prototype; </div><div class="line"> A.call(a, <span class="string">'hehe'</span>);</div></pre></td></tr></table></figure>
+<h2 id="原型链和prototype属性"><a href="#原型链和prototype属性" class="headerlink" title="原型链和prototype属性"></a>原型链和prototype属性</h2><h3 id="原型链是什么"><a href="#原型链是什么" class="headerlink" title="原型链是什么"></a>原型链是什么</h3><p>上面的 <code>__proto__</code> 是什么？<br>就是原型链，原型链是内部 [ [Prototype ]]，指向它“父类”的prototype。</p>
+<p>打开浏览器控制台，可以看到函数变量都有一个prototype属性（箭头函数没有）。<br>通过这一句<code>a.__proto__ = A.prototype;</code> 说明a的原型链就是指向函数A的prototype属性。</p>
+<p>这里就有一个重要的认识了，虽然名字很像，但是原型链并不是prototype属性，同时原型链指向“父类”的prototype。几乎所有对象都有原型链（除了null和undefined），通过<code>__proto__</code>可以看到原型链指向什么（当然最好使用 Object.getPrototypeOf 取原型链）</p>
+<p>通过实验可以发现，js中对象的链可以非常复杂。<br>一图胜千言。这里借一张图。<br><img src="https://www.evernote.com/shard/s23/sh/ab65497c-cad4-4bd4-a1d5-c75252161220/97a6be759c1d6413/deep/0/" alt="enter image description here"></p>
+<p>简而言之</p>
+<ul>
+<li>函数对象，Function，Object，Array等等的原型链都指向Function.prototype</li>
+<li>通过new操作符创建的对象原型链指向原来的函数的prototype属性</li>
+<li>Object.prototype属性的原型链指向null（到null就停止了）</li>
+<li>而Function.prototype（Array，Date，String等等），以及函数对象的prototype，原型链都指向Object.prototype</li>
+</ul>
+<h3 id="prototype属性究竟是什么呢"><a href="#prototype属性究竟是什么呢" class="headerlink" title="prototype属性究竟是什么呢"></a>prototype属性究竟是什么呢</h3><p>可以看到是一个Object，有constructor和原型链。constructor是一个函数，也就是函数自身。这可以为后面提到的继承做准备。</p>
+<h2 id="instanceof什么意思"><a href="#instanceof什么意思" class="headerlink" title="instanceof什么意思"></a>instanceof什么意思</h2><blockquote>
+<p>The instanceof operator tests whether an object has in its prototype chain the prototype property of a constructor.</p>
+<p><strong>Syntax：</strong><br>object instanceof constructor</p>
+</blockquote>
+<p>意思就是<code>object.__proto__===constructor.prototype</code></p>
+<p>MDN的教程中举例<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// defining constructors</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">C</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> C();</div><div class="line"><span class="comment">// true, because: Object.getPrototypeOf(o) === C.prototype</span></div><div class="line">o <span class="keyword">instanceof</span> C;</div></pre></td></tr></table></figure></p>
+<p>但是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var simpleStr = &apos;This is a simple string&apos;; </div><div class="line">var myString  = new String();</div><div class="line"></div><div class="line">simpleStr instanceof String; // returns false, checks the prototype chain, finds undefined</div></pre></td></tr></table></figure>
+<p>可是在浏览器中试验<code>Object.getPrototypeOf(simpleStr) === String.prototype</code><br>结果是true，大概这算作一个特殊情况</p>
+<h2 id="如何实现继承"><a href="#如何实现继承" class="headerlink" title="如何实现继承"></a>如何实现继承</h2><p><a href="https://babeljs.io/repl/" target="_blank" rel="external">https://babeljs.io/repl/</a><br>可以在这个网站在线编译并查看结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">  constructor(name) &#123;</div><div class="line">    this.name= name</div><div class="line">  &#125;</div><div class="line">  toString() &#123;</div><div class="line">    return this.name</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">class B extends A &#123;</div><div class="line">  toString()&#123;</div><div class="line">    return this.name + &apos;b&apos;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编译出来的ES5继承</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">_inherits</span>(<span class="params">subClass, superClass</span>) </span>&#123; </div><div class="line">    subClass.prototype.__proto__=superClass.prototype;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> A = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">A</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.name = name;</div><div class="line">    &#125;</div><div class="line">    A.prototype.toString = <span class="function"><span class="keyword">function</span> <span class="title">toString</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">return</span> A;</div><div class="line">&#125;)();</div><div class="line"><span class="keyword">var</span> B = (<span class="function"><span class="keyword">function</span> (<span class="params">_A</span>) </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">B</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">if</span> (_A != <span class="literal">null</span>) &#123;</div><div class="line">            _A.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    _inherits(B, _A);</div><div class="line">    B.prototype.toString = <span class="function"><span class="keyword">function</span> <span class="title">toString</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">'b'</span>;</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">return</span> B;</div><div class="line">&#125;)(A);</div></pre></td></tr></table></figure>
+<p>简单来说就是这样</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/23/js原型链、instanceof和继承/" data-id="cj0mij2xn00004frq3kk2wph9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/23/springmvc源码/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">springmvc源码</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-springmvc/">java springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/java-springmvc/" style="font-size: 10px;">java springmvc</a> <a href="/tags/node/" style="font-size: 20px;">node</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/23/js原型链、instanceof和继承/">js原型链、instanceof和继承</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/springmvc源码/">springmvc源码</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/node的事件机制/">node的事件机制</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/createServer过程源码解读/">createServer过程源码解读</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/23/延迟加载图片/">延迟加载图片</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 周小帆<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
