@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Do Not Go Gentle into That Good Night">
 <meta property="og:description" content="参考：MDN：instanceofMDN：Inheritance and the prototype chain理解JavaScript的原型链和继承">
 <meta property="og:image" content="https://www.evernote.com/shard/s23/sh/ab65497c-cad4-4bd4-a1d5-c75252161220/97a6be759c1d6413/deep/0/">
-<meta property="og:updated_time" content="2017-03-23T16:03:35.000Z">
+<meta property="og:updated_time" content="2017-03-27T14:42:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js原型链、instanceof和继承">
 <meta name="twitter:description" content="参考：MDN：instanceofMDN：Inheritance and the prototype chain理解JavaScript的原型链和继承">
@@ -204,6 +204,7 @@ var _hmt = _hmt || [];
 <p>但是</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var simpleStr = &apos;This is a simple string&apos;; </div><div class="line">var myString  = new String();</div><div class="line"></div><div class="line">simpleStr instanceof String; // returns false, checks the prototype chain, finds undefined</div></pre></td></tr></table></figure>
 <p>可是在浏览器中试验<code>Object.getPrototypeOf(simpleStr) === String.prototype</code><br>结果是true，大概这算作一个特殊情况</p>
+<p><strong>修正</strong>：这里是因为string字面量属于primitive类型，应该使用typeof，instanceof用于检测引用类型，</p>
 <h2 id="如何实现继承"><a href="#如何实现继承" class="headerlink" title="如何实现继承"></a>如何实现继承</h2><p><a href="https://babeljs.io/repl/" target="_blank" rel="external">https://babeljs.io/repl/</a><br>可以在这个网站在线编译并查看结果</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class A&#123;</div><div class="line">  constructor(name) &#123;</div><div class="line">    this.name= name</div><div class="line">  &#125;</div><div class="line">  toString() &#123;</div><div class="line">    return this.name</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">class B extends A &#123;</div><div class="line">  toString()&#123;</div><div class="line">    return this.name + &apos;b&apos;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>编译出来的ES5继承</p>
@@ -291,6 +292,15 @@ var _hmt = _hmt || [];
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/03/27/markdown-html/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          markdown-&gt;html
+        
+      </div>
+    </a>
   
   
     <a href="/2017/03/23/springmvc源码/" id="article-nav-older" class="article-nav-link-wrap">
@@ -394,11 +404,11 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -155,6 +155,72 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-markdown-html" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/27/markdown-html/">markdown-&gt;html</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/27/markdown-html/" class="archive-article-date">
+  	<time datetime="2017-03-27T14:36:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MD-gt-HTML原理"><a href="#MD-gt-HTML原理" class="headerlink" title="MD =&gt; HTML原理"></a>MD =&gt; HTML原理</h1><p>参考：<a href="https://github.com/jaywcjlove/MDEditor" target="_blank" rel="external">https://github.com/jaywcjlove/MDEditor</a></p>
+<p>基本过程</p>
+<ul>
+<li>词法解析器：Lexer将原的输入解析输出token序列<ul>
+<li>使用正则表达式将内容提取出来作为一个token存到数组中<ul>
+<li>token是一个类似这样的对象<code>var token1={type:&quot;space&quot;} , token2={type:&#39;head&#39;,text:&quot;abcdefg&quot;}</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>语法解析器：Parser将token序列生成抽象语法树（AST）<ul>
+<li>提取token并根据不同的类型对内容进行包装，生成html</li>
+<li>将得到的html显示在界面上innerHtml</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/27/markdown-html/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-js原型链、instanceof和继承" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -611,11 +677,11 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
               </li>
              
               <li class="article-tag-list-item">

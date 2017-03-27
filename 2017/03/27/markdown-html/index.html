@@ -6,24 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://zxf14.github.io">
-  <title>延迟加载图片 | Do Not Go Gentle into That Good Night</title>
+  <title>markdown-&gt;html | Do Not Go Gentle into That Good Night</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="首先有一个问题
-####src和href属性都用来包含一些外部的实体，那么有什么区别？
-src：source用于替代元素（replaced elements简而言之，就是外观和尺寸由外部资源来定义，有img，button，textarea，input，select，object）。">
+  <meta name="description" content="MD =&amp;gt; HTML原理参考：https://github.com/jaywcjlove/MDEditor
+基本过程
+
+词法解析器：Lexer将原的输入解析输出token序列
+使用正则表达式将内容提取出来作为一个token存到数组中
+token是一个类似这样的对象var token1={type:&amp;quot;space&amp;quot;} , token2={type:&amp;#39;head&amp;#39;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="延迟加载图片">
-<meta property="og:url" content="https://zxf14.github.io/2017/03/23/延迟加载图片/index.html">
+<meta property="og:title" content="markdown->html">
+<meta property="og:url" content="https://zxf14.github.io/2017/03/27/markdown-html/index.html">
 <meta property="og:site_name" content="Do Not Go Gentle into That Good Night">
-<meta property="og:description" content="首先有一个问题
-####src和href属性都用来包含一些外部的实体，那么有什么区别？
-src：source用于替代元素（replaced elements简而言之，就是外观和尺寸由外部资源来定义，有img，button，textarea，input，select，object）。">
-<meta property="og:updated_time" content="2017-03-23T15:50:43.000Z">
+<meta property="og:description" content="MD =&amp;gt; HTML原理参考：https://github.com/jaywcjlove/MDEditor
+基本过程
+
+词法解析器：Lexer将原的输入解析输出token序列
+使用正则表达式将内容提取出来作为一个token存到数组中
+token是一个类似这样的对象var token1={type:&amp;quot;space&amp;quot;} , token2={type:&amp;#39;head&amp;#39;">
+<meta property="og:updated_time" content="2017-03-27T14:39:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="延迟加载图片">
-<meta name="twitter:description" content="首先有一个问题
-####src和href属性都用来包含一些外部的实体，那么有什么区别？
-src：source用于替代元素（replaced elements简而言之，就是外观和尺寸由外部资源来定义，有img，button，textarea，input，select，object）。">
+<meta name="twitter:title" content="markdown->html">
+<meta name="twitter:description" content="MD =&amp;gt; HTML原理参考：https://github.com/jaywcjlove/MDEditor
+基本过程
+
+词法解析器：Lexer将原的输入解析输出token序列
+使用正则表达式将内容提取出来作为一个token存到数组中
+token是一个类似这样的对象var token1={type:&amp;quot;space&amp;quot;} , token2={type:&amp;#39;head&amp;#39;">
   
     <link rel="alternative" href="/atom.xml" title="Do Not Go Gentle into That Good Night" type="application/atom+xml">
   
@@ -163,37 +172,42 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-延迟加载图片" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-markdown-html" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      延迟加载图片
+      markdown-&gt;html
     </h1>
   
 
         
-        <a href="/2017/03/23/延迟加载图片/" class="archive-article-date">
-  	<time datetime="2017-03-23T14:43:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-23</time>
+        <a href="/2017/03/27/markdown-html/" class="archive-article-date">
+  	<time datetime="2017-03-27T14:36:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>首先有一个问题</p>
-<p>####src和href属性都用来包含一些外部的实体，那么有什么区别？</p>
-<p>src：source用于替代元素（<a href="http://reference.sitepoint.com/css/replacedelements" target="_blank" rel="external">replaced elements</a>简而言之，就是外观和尺寸由外部资源来定义，有img，button，textarea，input，select，object）。<br><a id="more"></a><br>href：Hypertext Reference，指定了web资源的定位。因此定义了一个连接或者现在元素之间的关系（比如锚和目的地），或者是当前文档（比如link标签）和属性定位的资源间的关系。<br>所以我们这样写<br><code>&lt;link href=&quot;style.css&quot; rel=&quot;stylesheet&quot; /&gt;</code><br>浏览器就能够理解这是一个样式表，而且解析（parse）页面的时候不会中断（但是可能因为浏览器需要依据样式来绘制渲染界面而中断渲染render）。跟把所有css文件倒到style标签不一样。因此也建议用link，不要用 @import来导样式表 。</p>
-<p>src属性只是在当前的文本元素定义的地方嵌套了一个资源。<br>例如当浏览器看到<br><code>&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</code><br>页面的下载和处理会被终止，直到浏览器获取，编译，执行了文件。类似于把所有的js文件都倾倒在script标签里。img标签也是类似的。只是一个空标签，内容由src定义，浏览器会暂停加载，直到获取和加载完图像。<br>这也是为什么要把js文件放在body的最后的原因。<br>参考来自<a href="http://stackoverflow.com/questions/3395359/difference-between-src-and-href" target="_blank" rel="external">http://stackoverflow.com/questions/3395359/difference-between-src-and-href</a></p>
-<hr>
-<p>想到了一个有意思的实现。<br>先不给img标签加上src，直到浏览到了这个位置再加载。对于移动端，还能省流量。</p>
-<p>所以来实现一下。<br>第一个问题在于获取图片距离可见范围下边的距离。<br>几个尺寸属性参考<a href="http://www.jianshu.com/p/187c0145248c" target="_blank" rel="external">http://www.jianshu.com/p/187c0145248c</a><br>先获取元素距离上边的距离，再获取屏幕可用高度，以及滑动高度。<br>从而得到距离视图下方的高度。</p>
-<p>第二个问题在于节流，总不能每滑动一下都执行一遍。有两个实现。同步和异步的方式各实现了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">handleScroll=(callback)=&gt;&#123;</div><div class="line">		let previousCall=new Date().getTime();</div><div class="line">		return (e=&gt;&#123;</div><div class="line">			let diff=new Date().getTime()-previousCall</div><div class="line">			if(diff&gt;INTERVAL)&#123;</div><div class="line">				callback.apply(null,arguments);</div><div class="line">				previousCall=new Date().getTime();</div><div class="line">			&#125;</div><div class="line">		&#125;)</div><div class="line">	&#125;</div><div class="line">window.addEventListener(&apos;scroll&apos;,handleScroll(checkImgs));</div><div class="line">//或者</div><div class="line">let wait=false;</div><div class="line">ontimeLoad=(e)=&gt;&#123;</div><div class="line">    if(!wait)&#123;</div><div class="line">      wait=true;</div><div class="line">      setTimeout(function()&#123;</div><div class="line">        wait=false;</div><div class="line">        checkImgs();</div><div class="line">      &#125;,10);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">window.addEventListener(&apos;scroll&apos;,ontimeLoad);</div></pre></td></tr></table></figure>
-<p>不过第一种的话有个问题，就是不能removeEventListener了</p>
-<p>源码：<br><a href="https://github.com/zxf14/font_end_demos/tree/master/defer-img-load" target="_blank" rel="external">https://github.com/zxf14/font_end_demos/tree/master/defer-img-load</a></p>
+        <h1 id="MD-gt-HTML原理"><a href="#MD-gt-HTML原理" class="headerlink" title="MD =&gt; HTML原理"></a>MD =&gt; HTML原理</h1><p>参考：<a href="https://github.com/jaywcjlove/MDEditor" target="_blank" rel="external">https://github.com/jaywcjlove/MDEditor</a></p>
+<p>基本过程</p>
+<ul>
+<li>词法解析器：Lexer将原的输入解析输出token序列<ul>
+<li>使用正则表达式将内容提取出来作为一个token存到数组中<ul>
+<li>token是一个类似这样的对象<code>var token1={type:&quot;space&quot;} , token2={type:&#39;head&#39;,text:&quot;abcdefg&quot;}</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>语法解析器：Parser将token序列生成抽象语法树（AST）<ul>
+<li>提取token并根据不同的类型对内容进行包装，生成html</li>
+<li>将得到的html显示在界面上innerHtml</li>
+</ul>
+</li>
+</ul>
 
       
 
@@ -252,7 +266,7 @@ var _hmt = _hmt || [];
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://zxf14.github.io/2017/03/23/延迟加载图片/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://zxf14.github.io/2017/03/27/markdown-html/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -266,18 +280,9 @@ var _hmt = _hmt || [];
   
 <nav id="article-nav">
   
-    <a href="/2017/03/23/createServer过程源码解读/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          createServer过程源码解读
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/06/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2017/03/23/js原型链、instanceof和继承/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">js原型链、instanceof和继承</div>
       <i class="icon-circle-right"></i>
     </a>
   
