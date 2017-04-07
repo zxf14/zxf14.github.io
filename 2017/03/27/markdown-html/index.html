@@ -24,7 +24,7 @@ token是一个类似这样的对象var token1={type:&amp;quot;space&amp;quot;} ,
 词法解析器：Lexer将原的输入解析输出token序列
 使用正则表达式将内容提取出来作为一个token存到数组中
 token是一个类似这样的对象var token1={type:&amp;quot;space&amp;quot;} , token2={type:&amp;#39;head&amp;#39;">
-<meta property="og:updated_time" content="2017-04-03T02:05:47.000Z">
+<meta property="og:updated_time" content="2017-04-07T05:12:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="markdown->html">
 <meta name="twitter:description" content="MD =&amp;gt; HTML原理参考：https://github.com/jaywcjlove/MDEditor
@@ -200,11 +200,13 @@ var _hmt = _hmt || [];
 <li>token是一个类似这样的对象<code>var token1={type:&quot;space&quot;} , token2={type:&#39;head&#39;,text:&quot;abcdefg&quot;}</code></li>
 </ul>
 </li>
+<li>在编译原理中，应该构造有限状态自动机来判断。但是我们有正则表达式这个工具就不要麻烦了</li>
 </ul>
 </li>
 <li>语法解析器：Parser将token序列生成抽象语法树（AST）<ul>
 <li>提取token并根据不同的类型对内容进行包装，生成html</li>
-<li>将得到的html显示在界面上innerHtml<br>回溯问题<br>语法规则</li>
+<li>将得到的html显示在界面上innerHtml</li>
+<li>问题：这里其实存在一个回溯问题，比如多个列表项，则需要在头尾加上ul标签。在编译过程其实应该制定语法规则，以及对冲突项列出优先级次序，然后进行解析。因为这里都很简单，没有很多语法规则，所以只需要在一开始识别出整个列表，而不是单个列表项。再次解析列表时，识别其中的列表项。</li>
 </ul>
 </li>
 </ul>
@@ -399,11 +401,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java springmvc</a>
+                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">javascript vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">java springmvc</a>
               </li>
             
             <div class="clearfix"></div>
