@@ -155,6 +155,68 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-面试经验积累" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/07/面试经验积累/">前端面试记录</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/07/面试经验积累/" class="archive-article-date">
+  	<time datetime="2017-04-07T04:40:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>##腾讯笔试<br>对于网络的考察非常多，也是这方面细节了解不够，应该开始计划对于这方面系统的复习。</p>
+<h4 id="编程题"><a href="#编程题" class="headerlink" title="编程题"></a>编程题</h4><p>一道很基础，统计数组里数字出现的次数。</p>
+<p>还有一道是找规律的题目。<br>1的拆分方式为0<br>2的拆分方式为0<br>3=2+1的拆分方式为1<br>4=3+1=2+2=2+1+1拆分结果为3<br>5=4+1=3+2=3+1+1=2+2+1=2+1+1+1+1拆分结果为5种<br>6=5+1=4+2=4+1+1=3+2+1=3+1+1+1=2+2+1+1+1=2+1+1+1+1+1拆分结果为7种<br>并没有明白这个规律是什么。<br>为什么6不能分为3+3，因为必须有1或者2？<br>为什么可以分为2+2不能分为1+1？</p>
+<p>##阿里笔试<br>实现模版字符串的变量替换。实现render方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">let greeting = &apos;My name is $&#123;name&#125;, age $&#123;age&#125;, I am a $&#123;job.jobName&#125;&apos;;</div><div class="line">let employee = &#123;</div><div class="line">    name: &apos;XiaoMing&apos;, </div><div class="line">    age: 11,</div><div class="line">    job: &#123;</div><div class="line">        jobName: &apos;designer&apos;,</div><div class="line">        jobLevel: &apos;senior&apos;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">let result = greeting.render(employee);</div><div class="line">console.log(result);  //My name is XiaoMing, age 11, I am a designer</div></pre></td></tr></table></figure></p>
+<p>其实很简单。但是考察的点还是很多的。</p>
+<ul>
+<li>对象属性的获取</li>
+<li>正则表达式</li>
+<li>字符串方法</li>
+<li>上下文</li>
+</ul>
+<p>正则表达式很不熟悉，所以花了很长时间还没做完。sad</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/07/面试经验积累/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-dva初体验" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -680,71 +742,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-createServer过程源码解读" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/createServer过程源码解读/">createServer过程源码解读</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/23/createServer过程源码解读/" class="archive-article-date">
-  	<time datetime="2017-03-23T14:44:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>node的入门就会写这样几行简单的代码，而createServer的过程究竟发生什么</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">const http = require(&apos;http&apos;);</div><div class="line">const server = http.createServer((req, res) =&gt; &#123;</div><div class="line">  res.statusCode = 200;</div><div class="line">  res.setHeader(&apos;Content-Type&apos;, &apos;text/plain&apos;);</div><div class="line">  res.end(&apos;Hello World\n&apos;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">server.listen(() =&gt; &#123;</div><div class="line">  console.log(`Server is running `);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2017/03/23/createServer过程源码解读/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">node</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/23/createServer过程源码解读/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -834,11 +831,11 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
               </li>
              
               <li class="article-tag-list-item">
