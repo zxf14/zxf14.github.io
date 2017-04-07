@@ -18,7 +18,7 @@
 <meta property="og:description" content="##腾讯笔试对于网络的考察非常多，也是这方面细节了解不够，应该开始计划对于这方面系统的复习。
 编程题一道很基础，统计数组里数字出现的次数。
 还有一道是找规律的题目。1的拆分方式为02的拆分方式为03=2+1的拆分方式为14=3+1=2+2=2+1+1拆分结果为35=4+1=3+2=3+1+1=2+2+1=2+1+1+1+1拆分结果为5种6=5+1=4+2=4+1+1=3+2+1=3+1+1+1=2">
-<meta property="og:updated_time" content="2017-04-07T05:00:05.000Z">
+<meta property="og:updated_time" content="2017-04-07T05:01:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端面试记录">
 <meta name="twitter:description" content="##腾讯笔试对于网络的考察非常多，也是这方面细节了解不够，应该开始计划对于这方面系统的复习。
@@ -183,18 +183,19 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##腾讯笔试<br>对于网络的考察非常多，也是这方面细节了解不够，应该开始计划对于这方面系统的复习。</p>
+        <p>##腾讯笔试<br>对于<strong>网络</strong>的考察非常多，也是这方面细节了解不够，应该开始计划对于这方面系统的复习。</p>
 <h4 id="编程题"><a href="#编程题" class="headerlink" title="编程题"></a>编程题</h4><p>一道很基础，统计数组里数字出现的次数。</p>
 <p>还有一道是找规律的题目。<br>1的拆分方式为0<br>2的拆分方式为0<br>3=2+1的拆分方式为1<br>4=3+1=2+2=2+1+1拆分结果为3<br>5=4+1=3+2=3+1+1=2+2+1=2+1+1+1+1拆分结果为5种<br>6=5+1=4+2=4+1+1=3+2+1=3+1+1+1=2+2+1+1+1=2+1+1+1+1+1拆分结果为7种<br>并没有明白这个规律是什么。<br>为什么6不能分为3+3，因为必须有1或者2？<br>为什么可以分为2+2不能分为1+1？</p>
 <p>##阿里笔试<br>实现模版字符串的变量替换。实现render方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">let greeting = &apos;My name is $&#123;name&#125;, age $&#123;age&#125;, I am a $&#123;job.jobName&#125;&apos;;</div><div class="line">let employee = &#123;</div><div class="line">    name: &apos;XiaoMing&apos;, </div><div class="line">    age: 11,</div><div class="line">    job: &#123;</div><div class="line">        jobName: &apos;designer&apos;,</div><div class="line">        jobLevel: &apos;senior&apos;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">let result = greeting.render(employee);</div><div class="line">console.log(result);  //My name is XiaoMing, age 11, I am a designer</div></pre></td></tr></table></figure></p>
-<p>其实很简单。但是考察的点还是很多的。</p>
+<p>题目其实很简单。但是考察的点还是很多的。</p>
 <ul>
 <li>对象属性的获取</li>
-<li>正则表达式</li>
+<li><strong>正则表达式</strong></li>
 <li>字符串方法</li>
 <li>上下文</li>
 </ul>
 <p>正则表达式很不熟悉，所以花了很长时间还没做完。sad</p>
+<p>源码附上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">String.prototype.render=function(objToReplace)&#123;</div><div class="line">	// 正则表达式捕获字符串中的变量部分</div><div class="line">	const pattern= /(\$\&#123;[^\$\&#123;\&#125;]*\&#125;)/;</div><div class="line">	const patternG= /(\$\&#123;[^\$\&#123;\&#125;]*\&#125;)/g;</div><div class="line">	let result=this;</div><div class="line">	let varList=result.match(patternG);//[&apos;$&#123;name&#125;&apos;,&apos;$&#123;age&#125;&apos;,&apos;$&#123;job.jobName&#125;&apos;]</div><div class="line"></div><div class="line">	for (let varName of varList)&#123;</div><div class="line">		// 获取变量名</div><div class="line">		varName=varName.slice(2,-1);</div><div class="line">		let propVal;</div><div class="line">		// 嵌套取值</div><div class="line">		if(varName.indexOf(&apos;.&apos;)!==-1)&#123;</div><div class="line">			let objAndProp=varName.split(&apos;.&apos;);</div><div class="line">			let obj=getPropertyValue.call(objToReplace,objAndProp[0]);</div><div class="line">			propVal=getPropertyValue.call(obj,objAndProp[1]);</div><div class="line">		&#125;</div><div class="line">		// 直接取值</div><div class="line">		else&#123;</div><div class="line">			propVal=getPropertyValue.call(objToReplace,varName);</div><div class="line">		&#125;</div><div class="line">		result=result.replace(pattern,propVal);</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">	return result;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function getPropertyValue(prop)&#123;</div><div class="line">	let keys=Object.keys(this);</div><div class="line">	for (let key of keys)&#123;</div><div class="line">		if(prop===key)&#123;</div><div class="line">			return this[prop];</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return null;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
 
@@ -369,11 +370,11 @@ var _hmt = _hmt || [];
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
