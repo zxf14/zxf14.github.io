@@ -155,6 +155,100 @@ var _hmt = _hmt || [];
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-视频直播" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/05/视频直播/">视频直播</a>
+    </h1>
+  
+
+        
+        <a href="/2017/05/05/视频直播/" class="archive-article-date">
+  	<time datetime="2017-05-05T06:18:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>参考资料：<br><a href="http://www.alloyteam.com/2016/05/h5-camera-literacy/" target="_blank" rel="external">H5视频直播扫盲| AlloyTeam</a><br><a href="https://aotu.io/notes/2016/10/09/HTML5-SopCast/" target="_blank" rel="external">H5直播起航| Aotu.io「凹凸实验室」</a><br><a href="https://zh.wikipedia.org/zh-hans/HTTP_Live_Streaming" target="_blank" rel="external">HTTP Live Streaming | wiki</a></p>
+<h2 id="视频直播分类"><a href="#视频直播分类" class="headerlink" title="视频直播分类"></a>视频直播分类</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">HLS</th>
+<th style="text-align:left">RTMP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="https://zh.wikipedia.org/zh-hans/HTTP_Live_Streaming" target="_blank" rel="external">HTTP Live Streaming</a></td>
+<td style="text-align:left"><a href="https://en.wikipedia.org/wiki/Real-Time_Messaging_Protocol" target="_blank" rel="external">Real Time Messaging Protocol</a></td>
+</tr>
+<tr>
+<td style="text-align:left">由苹果公司提出的基于HTTP的流媒体网络传输协议</td>
+<td style="text-align:left">Macromedia 开发的一套视频直播协议，现在属于 Adobe。这套方案需要搭建专门的 RTMP 流媒体服务如 Adobe Media Server，并且在浏览器中只能使用 Flash 实现播放器</td>
+</tr>
+<tr>
+<td style="text-align:left">原理：整个流分成一个个小的文件来下载</td>
+<td style="text-align:left">每个时刻的数据收到后立即发送</td>
+</tr>
+<tr>
+<td style="text-align:left">延时高，跨平台</td>
+<td style="text-align:left">延迟低、实时性较好，无法支持移动端 WEB 播放</td>
+</tr>
+<tr>
+<td style="text-align:left">移动web端</td>
+<td style="text-align:left">PC端</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>提供HLS的服务器<ul>
+<li>以 H.263 格式对图像进行编码，以 MP3 或者 HE-AAC 对声音进行编码，最终打包到 MPEG-2 TS（Transport Stream）容器之中</li>
+<li>分割：把编码好的 TS 文件等长切分成后缀为 ts 的小文件，并生成一个 .m3u8 的纯文本索引文件；</li>
+</ul>
+</li>
+<li>客户端<ul>
+<li>在开始一个流媒体会话时，客户端会下载一个包含元数据的extended M3U (m3u8) playlist文件，用于寻找可用的媒体流。</li>
+<li>m3u8 就是包含多个 ts 文件的播放列表</li>
+<li>m3u8 必须动态更新，ts 可以走 CDN</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/05/视频直播/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-git-flow的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -676,70 +770,6 @@ var _hmt = _hmt || [];
 
 
   
-    <article id="post-springmvc源码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/23/springmvc源码/">springmvc源码</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/23/springmvc源码/" class="archive-article-date">
-  	<time datetime="2017-03-23T14:45:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="DispatcherServlet来看spring-mvc请求处理过程"><a href="#DispatcherServlet来看spring-mvc请求处理过程" class="headerlink" title="DispatcherServlet来看spring mvc请求处理过程"></a>DispatcherServlet来看spring mvc请求处理过程</h1><h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><p>官方架构图<br><img src="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/images/mvc.png" alt="前端控制器模式"><br>可以看到请求处理过程，而DispatcherServlet正是担当front controller的角色。</p>
-        
-          <a class="article-more-a" href="/2017/03/23/springmvc源码/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java springmvc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/23/springmvc源码/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -833,11 +863,11 @@ var _hmt = _hmt || [];
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
               </li>
              
               <li class="article-tag-list-item">

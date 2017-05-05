@@ -6,33 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://zxf14.github.io">
-  <title>markdown-&gt;html | Do Not Go Gentle into That Good Night</title>
+  <title>Archives: 2017/5 | Do Not Go Gentle into That Good Night</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="MD =&amp;gt; HTML原理参考：https://github.com/jaywcjlove/MDEditor
-基本过程
-
-词法解析器：Lexer将原的输入解析输出token序列
-使用正则表达式将内容提取出来作为一个token存到数组中
-token是一个类似这样的对象var token1={type:&amp;quot;space&amp;quot;} , token2={type:&amp;#39;head&amp;#39;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="markdown->html">
-<meta property="og:url" content="https://zxf14.github.io/2017/03/27/markdown-html/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Do Not Go Gentle into That Good Night">
+<meta property="og:url" content="https://zxf14.github.io/archives/2017/05/index.html">
 <meta property="og:site_name" content="Do Not Go Gentle into That Good Night">
-<meta property="og:description" content="MD =&amp;gt; HTML原理参考：https://github.com/jaywcjlove/MDEditor
-基本过程
-
-词法解析器：Lexer将原的输入解析输出token序列
-使用正则表达式将内容提取出来作为一个token存到数组中
-token是一个类似这样的对象var token1={type:&amp;quot;space&amp;quot;} , token2={type:&amp;#39;head&amp;#39;">
-<meta property="og:updated_time" content="2017-04-07T05:12:50.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="markdown->html">
-<meta name="twitter:description" content="MD =&amp;gt; HTML原理参考：https://github.com/jaywcjlove/MDEditor
-基本过程
-
-词法解析器：Lexer将原的输入解析输出token序列
-使用正则表达式将内容提取出来作为一个token存到数组中
-token是一个类似这样的对象var token1={type:&amp;quot;space&amp;quot;} , token2={type:&amp;#39;head&amp;#39;">
+<meta name="twitter:title" content="Do Not Go Gentle into That Good Night">
   
     <link rel="alternative" href="/atom.xml" title="Do Not Go Gentle into That Good Night" type="application/atom+xml">
   
@@ -172,143 +153,49 @@ var _hmt = _hmt || [];
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-markdown-html" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      markdown-&gt;html
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/05/05/视频直播/" class="archive-article-date">
+  	<time datetime="2017-05-05T06:18:58.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-05</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/05/05/视频直播/">视频直播</a>
     </h1>
   
 
-        
-        <a href="/2017/03/27/markdown-html/" class="archive-article-date">
-  	<time datetime="2017-03-27T14:36:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MD-gt-HTML原理"><a href="#MD-gt-HTML原理" class="headerlink" title="MD =&gt; HTML原理"></a>MD =&gt; HTML原理</h1><p>参考：<a href="https://github.com/jaywcjlove/MDEditor" target="_blank" rel="external">https://github.com/jaywcjlove/MDEditor</a></p>
-<p>基本过程</p>
-<ul>
-<li>词法解析器：Lexer将原的输入解析输出token序列<ul>
-<li>使用正则表达式将内容提取出来作为一个token存到数组中<ul>
-<li>token是一个类似这样的对象<code>var token1={type:&quot;space&quot;} , token2={type:&#39;head&#39;,text:&quot;abcdefg&quot;}</code></li>
-</ul>
-</li>
-<li>在编译原理中，应该构造有限状态自动机来判断。但是我们有正则表达式这个工具就不要麻烦了</li>
-</ul>
-</li>
-<li>语法解析器：Parser将token序列生成抽象语法树（AST）<ul>
-<li>提取token并根据不同的类型对内容进行包装，生成html</li>
-<li>将得到的html显示在界面上innerHtml</li>
-<li>问题：这里其实存在一个回溯问题，比如多个列表项，则需要在头尾加上ul标签。在编译过程其实应该制定语法规则，以及对冲突项列出优先级次序，然后进行解析。因为这里都很简单，没有很多语法规则，所以只需要在一开始识别出整个列表，而不是单个列表项。再次解析列表时，识别其中的列表项。</li>
-</ul>
-</li>
-</ul>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://zxf14.github.io/2017/03/27/markdown-html/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/03/28/个人摄影图片展示应用开发记录/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          个人摄影图片展示应用开发记录
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/03/23/js原型链、instanceof和继承/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">js原型链、instanceof和继承</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-
-
-
-
-  
-    <div class="duoshuo"></div>
+    </div></section>
   
 
-
+    
 
 
           </div>
@@ -331,8 +218,8 @@ var _hmt = _hmt || [];
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
